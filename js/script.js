@@ -7,6 +7,7 @@
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
 var viewedQuotes = [];  // Array to store randomly selected Quotes.
+var intervalID;
 
 // Array of Objects for Quote Machine
 var quotes = [{
@@ -32,23 +33,11 @@ var quotes = [{
 function randomNum(upper) {
     var rNumber = Math.floor(Math.random() * upper);
     return rNumber;
-};
+}
 
 /* Calls getRandomQuote(); to generate a randomly selected Quote.
 Then formats the HTML for index.html and outputs to DOM.
 */
-function getRandomQuote() {                                                     // Function generates randomly selected Quote.
-    var ranNumber = Math.floor(Math.random() * quotes.length);                  // Random number generated based on quote arrays length.
-    var spliceQuote = quotes.splice(ranNumber, 1)[0];                           // Removes (1) object from quotes array stores in spliceQuote.
-                                                                                // Makes sure no one quote
-    if (quotes.length === 0) {
-        quotes = viewedQuotes;                                                  // Checks to see if quotes array is empty.
-        viewedQuotes = [];                                                      // If empty, moves all removed quote objects back to quotes array.
-    }
-
-    viewedQuotes.push(spliceQuote);                                             // Adds spliced quote to back of viewedQuotes array.
-    return spliceQuote;                                                         // returns random quote to printQuote();
-}
 
 
 function printQuote() {
@@ -69,7 +58,7 @@ function printQuote() {
     message += ' </p>';
     document.getElementById("main-body").style.background = backgrdColor;
     document.getElementById("quote-box").innerHTML = message;                   // Compiled HTML 'message' is sent to DOM replaces HTML on element ID 'quote-box'.
-};
+}
 
 function getRandomQuote() {                                                     // Function generates randomly selected Quote.
     var ranNumber = Math.floor(Math.random() * quotes.length);                  // Random number generated based on quote arrays length.
@@ -90,5 +79,12 @@ function randomColor() {                                                        
   rColor += randomNum(256) + ')';
   return rColor;
 }
+
+// Sets a 15second interval call to printQuote().
+// every 15 secs a new quote and background color will occur.
+function changeQuote() {
+  intervalID = setInterval(printQuote, 15000);
+}
+
 printQuote();
 console.log(randomColor());
