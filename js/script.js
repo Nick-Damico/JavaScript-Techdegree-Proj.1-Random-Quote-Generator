@@ -37,8 +37,23 @@ function randomNum(upper) {
 /* Calls getRandomQuote(); to generate a randomly selected Quote.
 Then formats the HTML for index.html and outputs to DOM.
 */
+function getRandomQuote() {                                                     // Function generates randomly selected Quote.
+    var ranNumber = Math.floor(Math.random() * quotes.length);                  // Random number generated based on quote arrays length.
+    var spliceQuote = quotes.splice(ranNumber, 1)[0];                           // Removes (1) object from quotes array stores in spliceQuote.
+                                                                                // Makes sure no one quote
+    if (quotes.length === 0) {
+        quotes = viewedQuotes;                                                  // Checks to see if quotes array is empty.
+        viewedQuotes = [];                                                      // If empty, moves all removed quote objects back to quotes array.
+    }
+
+    viewedQuotes.push(spliceQuote);                                             // Adds spliced quote to back of viewedQuotes array.
+    return spliceQuote;                                                         // returns random quote to printQuote();
+}
+
+
 function printQuote() {
     var selectedQuote = getRandomQuote();
+    var backgrdColor = randomColor();
     var message = '<p class="quote">' + selectedQuote.quote + '</p>';
     message += '<p class="source">' + selectedQuote.source;
 
@@ -52,6 +67,7 @@ function printQuote() {
     }
 
     message += ' </p>';
+    document.getElementById("main-body").style.background = backgrdColor;
     document.getElementById("quote-box").innerHTML = message;                   // Compiled HTML 'message' is sent to DOM replaces HTML on element ID 'quote-box'.
 };
 
@@ -67,4 +83,12 @@ function getRandomQuote() {                                                     
     viewedQuotes.push(spliceQuote);                                             // Adds spliced quote to back of viewedQuotes array.
     return spliceQuote;                                                         // returns random quote to printQuote();
 }
+
+function randomColor() {                                                        // Generates random rgb color and formats color for css value.
+  var rColor = 'rgb(' + randomNum(256) + ', ';
+  rColor += randomNum(256) + ', ';
+  rColor += randomNum(256) + ')';
+  return rColor;
+}
 printQuote();
+console.log(randomColor());
