@@ -38,8 +38,6 @@ function randomNum(upper) {
 /* Calls getRandomQuote(); to generate a randomly selected Quote.
 Then formats the HTML for index.html and outputs to DOM.
 */
-
-
 function printQuote() {
     var selectedQuote = getRandomQuote();
     var backgrdColor = randomColor();
@@ -54,8 +52,8 @@ function printQuote() {
     if (selectedQuote.hasOwnProperty('year')) {                                 // Checks for 'year' property in Object.
         message += ' <span class="year">' + selectedQuote.year + ' </span>';    // Only adds HTML <span> if Obj. has 'year' property.
     }
-
     message += ' </p>';
+
     document.getElementById("main-body").style.background = backgrdColor;
     document.getElementById("quote-box").innerHTML = message;                   // Compiled HTML 'message' is sent to DOM replaces HTML on element ID 'quote-box'.
 }
@@ -80,11 +78,9 @@ function randomColor() {                                                        
   return rColor;
 }
 
+// Used on <body onload="changeQuote();".
 // Sets a 15second interval call to printQuote().
 // every 15 secs a new quote and background color will occur.
 function changeQuote() {
   intervalID = setInterval(printQuote, 15000);
 }
-
-printQuote();
-console.log(randomColor());
