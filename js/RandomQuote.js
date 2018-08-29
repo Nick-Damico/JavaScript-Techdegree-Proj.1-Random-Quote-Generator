@@ -1,0 +1,3 @@
+class RandomQuote {
+  constructor() {}
+}

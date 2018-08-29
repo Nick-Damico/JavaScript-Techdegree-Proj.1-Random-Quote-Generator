@@ -11,7 +11,6 @@
 
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
-console.log('Start Program');
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
 var viewedQuotes = []; // Array to store randomly selected Quotes.
@@ -86,4 +85,3 @@ function randomColor() {
 function changeQuote() {
     intervalID = setInterval(printQuote, 15000);
 }
-console.log('End Program');
